@@ -1,0 +1,32 @@
+h1{
+    text-align: center;
+    font-size: 40px;
+    text-decoration: underline;
+}
+
+.rules-list{
+    column-count: 2;
+    column-gap: 25%;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.rules-list li{
+
+    margin: 10px 0;
+
+}
+
+.rules{
+    background-color: #F7F1DE ;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-size: 24px;
+}
+
+.rules h2{
+    font-size: 35px;
+    text-align: center;
+    margin-top: 30px;
+    text-decoration: underline;
+}
