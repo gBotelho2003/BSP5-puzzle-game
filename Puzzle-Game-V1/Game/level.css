@@ -1,0 +1,25 @@
+h1{
+    text-align: center;
+}
+
+
+.grid5by5{
+
+    display: grid;
+    /* Create 5 columns */
+	grid-template-columns: repeat(5, 8%);
+
+    /* Create 5 rows */
+	grid-template-rows: repeat(5, 30%);
+
+    grid-gap: 30px;
+
+    text-align: center;
+    margin-left: 32.5%;
+    
+}
+.item {
+	background-color: lightgray;
+	border: 1px solid rgba(128, 128, 128, 0.5);
+	
+}
