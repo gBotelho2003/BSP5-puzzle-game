@@ -6,6 +6,7 @@
     background-color: #576c6e;
     overflow: hidden;
     font-size: 20px;
+    
 }
 
 /* page links*/
@@ -16,6 +17,7 @@
     padding: 1% 4%;
     text-decoration: none;
     margin-top: 20px;
+    display: block;
     
 }
 /*selected link*/
@@ -39,4 +41,18 @@
 }
 img{
     width: 6%;
+    margin-bottom: 0;
+    
+}
+footer{
+    text-align: center;
+    background-color: #576c6e;
+    color: aliceblue;
+    overflow: hidden;
+    text-decoration: none;  
+}
+body{
+    background-color: #F7F1DE ;
+    margin: 0;
+    padding: 0;
 }
