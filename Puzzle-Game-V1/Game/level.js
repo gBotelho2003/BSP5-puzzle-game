@@ -67,25 +67,55 @@ function startGame(){
 
     function colorGuess(guessedWord){
 
+        // map to keep track of the letters that have been checked
+        const letters = new Map();
+        // add the letters from the guess to letters as false because they have not been checked yet
+        for(let j = 0; j<wordLength;j++){
+            letters.set(guessedWord[j],false);
+        }
+
         for(let i = 0; i < wordLength; i++){
 
             const index = (currRow * wordLength) + i;
             const letter = guessedWord[i];
+            const key = document.getElementById(letter);
+        
             // verify if the letter is in the word and right position
             if(letter == toGuess[i]){
                 cells[index].style.backgroundColor = "green";
+                cells[index].style.color = "white";
+                key.style.background = "green";
+                key.style.color= "white";
+                // set the letter to true so that it does not get checked again 
+                letters.set(letter,true);
             }
             // verify if the letter is in the word but in the wrong position
-            else if(toGuess.includes(letter)){
+            else if(toGuess.includes(letter)&& letters.get(letter)==false){
                 cells[index].style.backgroundColor = "orange";
+                cells[index].style.color = "white";
+                letters.set(letter,true);
+                // verify if the letter is not already green
+                if(key.style.background != "green"){
+                    key.style.background = "orange";
+                    key.style.color= "white";
+                }
             }
             // word does not contain letter
             else{
+
                 cells[index].style.backgroundColor = "red";
+                cells[index].style.color = "white";
+                //color the keyboard with gray if not green or orange already
+                if(key.style.background != "orange" &&key.style.background != "green"){
+                    key.style.background = "gray";
+                    key.style.color= "white";
+                }
+                
             }
         }
 
     }
+
 
     // make pop up visible and display stats
     function winStats(attempts){
