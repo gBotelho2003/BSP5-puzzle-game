@@ -1,4 +1,14 @@
 
+
+
+// load words into dictionary
+let dictionary= [];
+fetch("/Puzzle-Game-V1/words.json")
+    .then(res => res.json())
+    .then(data => dictionary = data.words)
+    .catch(err => console.error("Dictionary load failed:", err));
+
+
 // determine which difficulty is chosen
 function difficulty(level) {
     
@@ -93,6 +103,12 @@ function startGame(toGuess){
             guess.push(cells[index].textContent);
         } 
         const guessedWord = guess.join("");  
+
+        if(!dictionary.includes(guessedWord)){
+            showMessage("Not a real word!");
+            return;
+        }
+
         // function to see if guess is right or wrong 
         colorGuess(guessedWord);
         
