@@ -8,7 +8,7 @@ function startGame(){
     const wordLength = 5;
 
     // will get changed by a bag of words
-    const toGuess = "HOMER";
+    let toGuess = "HOMER";
 
     // keep track of pressed keys
     document.addEventListener("keydown", handleKey);
@@ -129,6 +129,16 @@ function startGame(){
     document.getElementById("close").addEventListener("click", () => {
     document.getElementById("popup").style.visibility='hidden';
     });
+
+
+    // determine which difficulty is chosen
+    function difficulty(level) {
+        const randomNum = Math.random() * (max - min + 1);
+        if(level === "easy") {
+
+        }
+
+    }
 }
 
 startGame();
