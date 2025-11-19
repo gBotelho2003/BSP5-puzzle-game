@@ -1,4 +1,47 @@
-function startGame(){
+
+// determine which difficulty is chosen
+function difficulty(level) {
+    
+    // bag of words
+    const easyWords = ["APPLE", "HOUSE", "PLANE", "GRAPE", "TRAIN"];
+    const mediumWords = ["BANJO", "GUITA", "MONKY", "CRANE", "BRICK"];
+    const hardWords = ["ZEBRA", "JOKER", "QUIRK", "LYNCH", "VIXEN"];
+
+    
+    let toGuess = "";
+    const random = Math.floor(Math.random()*easyWords.length);
+   
+    if(level == 'easy') {
+        // random word from the list for the gameB
+        toGuess = easyWords[random];
+    }
+    else if(level == 'medium'){
+        // random word from the list for the game
+        toGuess = mediumWords[random];
+    }
+    else if(level == 'hard'){
+        // random word from the list for the game
+        toGuess = hardWords[random];
+    }
+
+    // store the word for the next page
+    localStorage.setItem("wordToGuess", toGuess);
+
+
+    // go to the selected difficulty level
+    if(level == 'easy') {
+        window.location.href = "/Puzzle-Game-V1/Game/easyLevel.html";
+    }
+    else if(level == 'medium'){
+        window.location.href = "/Puzzle-Game-V1/Game/mediumLevel.html";
+    }
+    else if(level == 'hard'){
+        window.location.href = "/Puzzle-Game-V1/Game/hardLevel.html"; 
+    }
+}
+
+// the actual game that verifies guesses and the coloring of the letters
+function startGame(toGuess){
 
     // fetch the cells where the letters will be placed
     const cells = document.querySelectorAll('.item');
@@ -7,8 +50,7 @@ function startGame(){
     let count = 0;
     const wordLength = 5;
 
-    // will get changed by a bag of words
-    let toGuess = "HOMER";
+    
 
     // keep track of pressed keys
     document.addEventListener("keydown", handleKey);
@@ -129,16 +171,14 @@ function startGame(){
     document.getElementById("close").addEventListener("click", () => {
     document.getElementById("popup").style.visibility='hidden';
     });
-
-
-    // determine which difficulty is chosen
-    function difficulty(level) {
-        const randomNum = Math.random() * (max - min + 1);
-        if(level === "easy") {
-
-        }
-
-    }
 }
 
-startGame();
+
+// start the game
+const toGuess = localStorage.getItem("wordToGuess");
+startGame(toGuess);
+
+
+
+
+
