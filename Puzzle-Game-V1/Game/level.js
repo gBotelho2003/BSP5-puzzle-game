@@ -22,7 +22,7 @@ function difficulty(level) {
     const random = Math.floor(Math.random()*easyWords.length);
    
     if(level == 'easy') {
-        // random word from the list for the gameB
+        // random word from the list for the game
         toGuess = easyWords[random];
     }
     else if(level == 'medium'){
