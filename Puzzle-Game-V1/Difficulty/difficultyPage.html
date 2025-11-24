@@ -13,7 +13,7 @@
         <!--Navigation Bar div-->
         <div class="navigationBar">
             <img src="/Puzzle-Game-V1/img/reguess-logo.jpg" alt="ReGuess Logo">
-            <a href="xx">Contact</a>
+            <a href="/Puzzle-Game-V1/Contact/contacPage.html">Contact</a>
             <a href="/Puzzle-Game-V1/Rules/rulesPage.html">Rules</a>
             <a href="/Puzzle-Game-V1/Home/homePage.html">Home</a>
         </div>
@@ -27,11 +27,19 @@
             The words only get more difficult to guess <br>
             Good Luck!
             </p>
-            <button type="button"  onclick="difficulty('easy')">Easy</button>
-            <button type="button" onclick="difficulty('medium')">Medium</button>
-            <button type="button" onclick="difficulty('hard')">Hard</button>
+            <button type="button" id="easyLevel" onclick="difficulty('easy')">Level 1</button>
+            <button type="button" id="mediumLevel" disabled="True" onclick="difficulty('medium')">Level 2</button>
+            <button type="button" id="hardLevel" disabled="True" onclick="difficulty('hard')">Level 3</button>
         </div>
         
     </body>
     <script src="/Puzzle-Game-V1/Game/level.js"></script>
+    <script src="/Puzzle-Game-V1/Difficulty/difficultyManager.js"></script>
+
+    <footer> 
+        <p>ReGuess - Puzzle Game <br>
+            Author - Gabriel Botelho
+        </p>
+    </footer>
+    
 </html>

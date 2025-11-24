@@ -14,33 +14,42 @@ function difficulty(level) {
     
     // bag of words
     const easyWords = ["APPLE", "HOUSE", "PLANE", "GRAPE", "TRAIN"];
-    const mediumWords = ["BANJO", "GUITA", "MONKY", "CRANE", "BRICK"];
+    const mediumWords = ["LUTED","CUKES","BAIRN","BIGHT","ARSES"];
     const hardWords = ["ZEBRA", "JOKER", "QUIRK", "LYNCH", "VIXEN"];
 
+    let words = [];
     
-    let toGuess = "";
-    const random = Math.floor(Math.random()*easyWords.length);
-   
     if(level == 'easy') {
         // random word from the list for the gameB
-        toGuess = easyWords[random];
+        words = easyWords;
+        
     }
     else if(level == 'medium'){
         // random word from the list for the game
-        toGuess = mediumWords[random];
+        words = mediumWords;
+        
     }
     else if(level == 'hard'){
         // random word from the list for the game
-        toGuess = hardWords[random];
+        words = hardWords; 
+
     }
+
+    let toGuess = "";
+    const random = Math.floor(Math.random()*words.length);
+    toGuess = words[random];
+
 
     // store the word for the next page
     localStorage.setItem("wordToGuess", toGuess);
 
+    // store level 
+    localStorage.setItem("currentLevel", level);
 
     // go to the selected difficulty level
     if(level == 'easy') {
         window.location.href = "/Puzzle-Game-V1/Game/easyLevel.html";
+        
     }
     else if(level == 'medium'){
         window.location.href = "/Puzzle-Game-V1/Game/mediumLevel.html";
@@ -51,7 +60,7 @@ function difficulty(level) {
 }
 
 // the actual game that verifies guesses and the coloring of the letters
-function startGame(toGuess){
+function startGame(toGuess,level){
 
     // fetch the cells where the letters will be placed
     const cells = document.querySelectorAll('.item');
@@ -104,7 +113,7 @@ function startGame(toGuess){
         } 
         const guessedWord = guess.join("");  
 
-        if(!dictionary.includes(guessedWord)){
+        if(!dictionary.includes(guessedWord.toLowerCase())){
             showMessage("Not a real word!");
             return;
         }
@@ -115,7 +124,10 @@ function startGame(toGuess){
 
         if(toGuess === guessedWord || count == 5){
             winStats(currRow+1);
-            
+
+            // stop further input
+            document.removeEventListener("keydown", handleKey);
+
             return;
         }
         currRow++;
@@ -177,8 +189,11 @@ function startGame(toGuess){
 
     // make pop up visible and display stats
     function winStats(attempts){
+
         document.getElementById("attemptedGuesses").innerText = attempts + "/5 guesses";
         document.getElementById("correctWord").innerText += "The word was "+ toGuess;
+        document.getElementById("levelCompleted").innerText += "The current level is "+ level;
+
         const popup = document.getElementById("popup");
             // make the pop up visible
             popup.style.visibility='visible';
@@ -186,13 +201,31 @@ function startGame(toGuess){
     //close the pop up with the stats
     document.getElementById("close").addEventListener("click", () => {
     document.getElementById("popup").style.visibility='hidden';
+    window.location.href = "/Puzzle-Game-V1/Difficulty/difficultyPage.html";
+    levelCompleted(level);
     });
+
+    
+    function levelCompleted(lvl){
+
+        // after completing level 1 enable level 2
+        if(lvl == 'easy'){
+            localStorage.setItem("enableMedium", "true");
+        }
+        else if(lvl == 'medium'){
+            localStorage.setItem("enableHard", "true");
+        }
+
+
+    }
+
 }
 
 
 // start the game
-const toGuess = localStorage.getItem("wordToGuess");
-startGame(toGuess);
+let toGuess = localStorage.getItem("wordToGuess");
+let level = localStorage.getItem("currentLevel");
+startGame(toGuess,level);
 
 
 
