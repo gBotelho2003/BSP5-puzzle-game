@@ -69,7 +69,14 @@ function startGame(toGuess,level){
     let count = 0;
     const wordLength = 5;
 
-    
+    // hidden timer
+    let timeElapsed = 0;
+    let timerInterval;
+    function updateTimer(){
+        timeElapsed++;
+    }
+    // start the timer
+    timerInterval = setInterval(updateTimer, 1000);
 
     // keep track of pressed keys
     document.addEventListener("keydown", handleKey);
@@ -123,6 +130,10 @@ function startGame(toGuess,level){
         
 
         if(toGuess === guessedWord || count == 5){
+
+            // stop the timer
+            clearInterval(timerInterval);
+            // show stats 
             winStats(currRow+1);
 
             // stop further input
@@ -190,10 +201,14 @@ function startGame(toGuess,level){
     // make pop up visible and display stats
     function winStats(attempts){
 
+        const min = Math.floor(timeElapsed / 60);
+        const sec = timeElapsed % 60;
+        const minutes = min.toString().padStart(2,'0');
+        const seconds = sec.toString().padStart(2,'0');
         document.getElementById("attemptedGuesses").innerText = attempts + "/5 guesses";
         document.getElementById("correctWord").innerText += "The word was "+ toGuess;
         document.getElementById("levelCompleted").innerText += "The current level is "+ level;
-
+        document.getElementById("timer").innerText += "Time taken: " + minutes+":"+ seconds;
         const popup = document.getElementById("popup");
             // make the pop up visible
             popup.style.visibility='visible';
