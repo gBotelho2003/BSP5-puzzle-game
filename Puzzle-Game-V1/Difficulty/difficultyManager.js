@@ -12,6 +12,8 @@ function updateDifficultyButtons(){
     if(enableHard === "true"){
         document.getElementById("hardLevel").disabled = false;
         document.getElementById("mediumLevel").disabled = true;
+        document.getElementById("downloadStats").disabled = false;
+        
     }
 }
 

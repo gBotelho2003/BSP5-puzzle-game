@@ -1,12 +1,20 @@
 
 
-
 // load words into dictionary
 let dictionary= [];
 fetch("/Puzzle-Game-V1/words.json")
     .then(res => res.json())
     .then(data => dictionary = data.words)
     .catch(err => console.error("Dictionary load failed:", err));
+
+
+// list that will store the stats of each level in local storage
+let stats = JSON.parse(localStorage.getItem("stats")) || {
+    level1:{ attempts:"", word:"", time:"", success:"" },
+    level2:{ attempts:"", word:"", time:"", success:"" },
+    level3:{ attempts:"", word:"", time:"", success:"" }
+};
+
 
 
 // determine which difficulty is chosen
@@ -131,18 +139,31 @@ function startGame(toGuess,level){
         colorGuess(guessedWord);
         
 
-        if(toGuess === guessedWord || count == 5){
+        if(toGuess === guessedWord){
 
             // stop the timer
             clearInterval(timerInterval);
             // show stats 
-            winStats(currRow+1);
+            winStats(currRow+1,true);
 
             // stop further input
             document.removeEventListener("keydown", handleKey);
 
             return;
         }
+
+        if(count == 5){
+            // stop the timer
+            clearInterval(timerInterval);
+            // show stats 
+            winStats(currRow+1,false);
+
+            // stop further input
+            document.removeEventListener("keydown", handleKey);
+
+            return;
+        }
+
         currRow++;
         currCol=0;
     
@@ -201,26 +222,41 @@ function startGame(toGuess,level){
 
 
     // make pop up visible and display stats
-    function winStats(attempts){
+    function winStats(attempts, success){
 
         const min = Math.floor(timeElapsed / 60);
         const sec = timeElapsed % 60;
         const minutes = min.toString().padStart(2,'0');
         const seconds = sec.toString().padStart(2,'0');
+        const time = minutes+":"+ seconds;
+
+        // save variables for end stats
+        localStorage.setItem("time",time);
+        localStorage.setItem("attempts", attempts);
+        localStorage.setItem("success", success);
+
+        storeStats(level);
+
         document.getElementById("attemptedGuesses").innerText = attempts + "/5 guesses";
         document.getElementById("correctWord").innerText += "The word was "+ toGuess;
         document.getElementById("levelCompleted").innerText += "The current level is "+ level;
-        document.getElementById("timer").innerText += "Time taken: " + minutes+":"+ seconds;
+        document.getElementById("timer").innerText += "Time taken: " + time;
+        document.getElementById("success").innerText += "Success: " + success; 
         const popup = document.getElementById("popup");
             // make the pop up visible
             popup.style.visibility='visible';
     }
+
+
     //close the pop up with the stats
-    document.getElementById("close").addEventListener("click", () => {
-    document.getElementById("popup").style.visibility='hidden';
-    window.location.href = "/Puzzle-Game-V1/Difficulty/difficultyPage.html";
-    levelCompleted(level);
-    });
+    const closeButton = document.getElementById("close");
+    if (closeButton) {
+        closeButton.addEventListener("click", () => {
+            document.getElementById("popup").style.visibility='hidden';
+            window.location.href = "/Puzzle-Game-V1/Difficulty/difficultyPage.html";
+            levelCompleted(level);
+        });
+    }
 
     
     function levelCompleted(lvl){
@@ -232,9 +268,40 @@ function startGame(toGuess,level){
         else if(lvl == 'medium'){
             localStorage.setItem("enableHard", "true");
         }
+    }
+    // functiom to store the stats of each level
+    function storeStats(currLevel){
 
+        const attempts = localStorage.getItem("attempts");
+        const time = localStorage.getItem("time");
+        const success = localStorage.getItem("success");
+
+        if(currLevel== 'easy'){
+            stats["level1"].attempts = attempts;
+            stats["level1"].word = toGuess;
+            stats["level1"].time = time;
+            stats["level1"].success = success;
+        }
+        if(currLevel== 'medium'){
+            stats["level2"].attempts = attempts;
+            stats["level2"].word = toGuess;
+            stats["level2"].time = time;
+            stats["level2"].success = success;
+        }
+        if(currLevel== 'hard'){
+            stats["level3"].attempts = attempts;
+            stats["level3"].word = toGuess;
+            stats["level3"].time = time;
+            stats["level3"].success = success;
+        }
+
+        // add new info to the stats list
+        localStorage.setItem("stats", JSON.stringify(stats));
 
     }
+
+console.log(stats);
+
 
 }
 
@@ -243,6 +310,57 @@ function startGame(toGuess,level){
 let toGuess = localStorage.getItem("wordToGuess");
 let level = localStorage.getItem("currentLevel");
 startGame(toGuess,level);
+
+
+
+
+//const stats = JSON.parse(localStorage.getItem("stats"));
+function openStatsAsCSV() {
+    const stats = JSON.parse(localStorage.getItem("stats")) || {
+        level1:{ attempts:"", word:"", time:"", success:"" },
+        level2:{ attempts:"", word:"", time:"", success:"" },
+        level3:{ attempts:"", word:"", time:"", success:"" }
+    };
+
+    const rows = [
+        ["Level", "Attempts", "Word", "Time", "Success"],
+        ["Level 1", stats.level1.attempts, stats.level1.word, stats.level1.time, stats.level1.success],
+        ["Level 2", stats.level2.attempts, stats.level2.word, stats.level2.time, stats.level2.success],
+        ["Level 3", stats.level3.attempts, stats.level3.word, stats.level3.time, stats.level3.success]
+    ];
+
+    const csvContent = rows.map(r => r.join(",")).join("\n");
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+
+    const tempLink = document.createElement('a');
+    tempLink.href = url;
+    // Set the filename here. This forces a download!
+    tempLink.download = 'ReGuess_Game_Stats.csv'; 
+    
+    // Simulate a click on the link
+    tempLink.click();
+
+    // Clean up the temporary URL to free memory
+    URL.revokeObjectURL(url);
+}
+
+// Attach listener after DOM is loaded
+document.addEventListener("DOMContentLoaded", () => {
+    const a = document.getElementById("downloadStats");
+    if(a) {
+        a.addEventListener("click", (e) => {
+            e.preventDefault();  // Prevents the browser from navigating to '#'
+
+            // ⬅️ ADD THIS LINE HERE
+            console.log("Stats button clicked! Attempting download.");
+
+            openStatsAsCSV();
+        });
+    }
+});
+
+
 
 
 
