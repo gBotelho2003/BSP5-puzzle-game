@@ -37,12 +37,19 @@ h1{
     border: none;
     color: white;
     padding: 15px 32px;
-    text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 24px;
-    margin: 4px 2px;
+    margin: 40px auto 100px;
     cursor: pointer;
     border-radius: 12px;
+    margin-bottom: 100px;
+    display: block;
+}
+
+video{
+    width: 70%;
+    margin: 30px auto;
+    display: block;
 }
 
