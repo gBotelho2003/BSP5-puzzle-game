@@ -11,7 +11,6 @@ function resetGame() {
     //localStorage.removeItem("time");
     //localStorage.removeItem("attempts");
     //localStorage.removeItem("success");
+    location.reload();
 }
-if(window.location.href.includes("homePage.html")){
-    resetGame();
-}
+

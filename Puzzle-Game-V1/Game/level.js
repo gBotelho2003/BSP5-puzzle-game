@@ -160,6 +160,7 @@ function startGame(toGuess,level){
 
             // stop further input
             document.removeEventListener("keydown", handleKey);
+            count= 0;
 
             return;
         }
