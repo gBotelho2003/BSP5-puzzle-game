@@ -21,9 +21,9 @@ let stats = JSON.parse(localStorage.getItem("stats")) || {
 function difficulty(level) {
     
     // bag of words
-    const easyWords = ["APPLE", "HOUSE", "PLANE", "GRAPE", "TRAIN"];
-    const mediumWords = ["LUTED","CUKES","BAIRN","BIGHT","ARSES"];
-    const hardWords = ["ZEBRA", "JOKER", "QUIRK", "LYNCH", "VIXEN"];
+    const easyWords = ['GIVES', 'GAMES', 'SORRY', 'WHICH', 'OFFER', 'MONEY', 'MEANT', 'TRADE', 'FRONT', 'BRAIN'];
+    const mediumWords = ['BROAD', 'APART', 'ROMAN', 'SMILE', 'WASTE', 'IDEAS', 'ENTRY', 'ROYAL', 'CLOCK', 'OCCUR'];
+    const hardWords = ['SHALE', 'AMPLY', 'FLAMS', 'HONKY', 'BEGOT', 'GNASH', 'DIKED', 'JUMBO', 'GARBS', 'GRAPY'];
 
     let words = [];
     
