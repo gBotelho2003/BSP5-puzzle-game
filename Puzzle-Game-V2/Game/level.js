@@ -2,7 +2,7 @@
 
 // load words into dictionary
 let dictionary= [];
-fetch("/Puzzle-Game-V1/words.json")
+fetch("/Puzzle-Game-V2/words.json")
     .then(res => res.json())
     .then(data => dictionary = data.words)
     .catch(err => console.error("Dictionary load failed:", err));
@@ -58,14 +58,14 @@ function difficulty(level) {
 
     // go to the selected difficulty level
     if(level == 'easy') {
-        window.location.href = "/Puzzle-Game-V1/Game/easyLevel.html";
+        window.location.href = "/Puzzle-Game-V2/Game/easyLevel.html";
         
     }
     else if(level == 'medium'){
-        window.location.href = "/Puzzle-Game-V1/Game/mediumLevel.html";
+        window.location.href = "/Puzzle-Game-V2/Game/mediumLevel.html";
     }
     else if(level == 'hard'){
-        window.location.href = "/Puzzle-Game-V1/Game/hardLevel.html"; 
+        window.location.href = "/Puzzle-Game-V3/Game/hardLevel.html"; 
     }
 }
 
@@ -221,7 +221,36 @@ function startGame(toGuess,level){
                 
             }
         }
+        // choose which message to show as
+        
 
+
+        // feedback message for each guess
+        if(currRow == 0){
+            document.getElementById("f1").innerText = "Submitted first guess!";
+    
+        }
+        else if(currRow == 1){
+            document.getElementById("f2").innerText = "Submitted second guess!";
+            // make previous message disappear
+            document.getElementById("f1").innerText = "";
+
+        }
+        else if(currRow == 2){
+            document.getElementById("f3").innerText = "Submitted third guess!";
+            // make previous message disappear
+            document.getElementById("f2").innerText = "";
+        }
+        else if(currRow == 3){
+            document.getElementById("f4").innerText = "Submitted fourth guess!";
+            // make previous message disappear
+            document.getElementById("f3").innerText = "";
+        }
+        else if(currRow == 4){
+            document.getElementById("f5").innerText = "Submitted fifth guess!"; 
+            // make previous message disappear
+            document.getElementById("f4").innerText = "";
+        }
     }
 
 
@@ -257,7 +286,7 @@ function startGame(toGuess,level){
     if (closeButton) {
         closeButton.addEventListener("click", () => {
             document.getElementById("popup").style.visibility='hidden';
-            window.location.href = "/Puzzle-Game-V1/Difficulty/difficultyPage.html";
+            window.location.href = "/Puzzle-Game-V2/Difficulty/difficultyPage.html";
             levelCompleted(level);
         });
     }

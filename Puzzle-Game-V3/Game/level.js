@@ -2,7 +2,7 @@
 
 // load words into dictionary
 let dictionary= [];
-fetch("/Puzzle-Game-V1/words.json")
+fetch("/Puzzle-Game-V3/words.json")
     .then(res => res.json())
     .then(data => dictionary = data.words)
     .catch(err => console.error("Dictionary load failed:", err));
@@ -58,14 +58,14 @@ function difficulty(level) {
 
     // go to the selected difficulty level
     if(level == 'easy') {
-        window.location.href = "/Puzzle-Game-V1/Game/easyLevel.html";
+        window.location.href = "/Puzzle-Game-V3/Game/easyLevel.html";
         
     }
     else if(level == 'medium'){
-        window.location.href = "/Puzzle-Game-V1/Game/mediumLevel.html";
+        window.location.href = "/Puzzle-Game-V3/Game/mediumLevel.html";
     }
     else if(level == 'hard'){
-        window.location.href = "/Puzzle-Game-V1/Game/hardLevel.html"; 
+        window.location.href = "/Puzzle-Game-V3/Game/hardLevel.html"; 
     }
 }
 
@@ -257,7 +257,7 @@ function startGame(toGuess,level){
     if (closeButton) {
         closeButton.addEventListener("click", () => {
             document.getElementById("popup").style.visibility='hidden';
-            window.location.href = "/Puzzle-Game-V1/Difficulty/difficultyPage.html";
+            window.location.href = "/Puzzle-Game-V3/Difficulty/difficultyPage.html";
             levelCompleted(level);
         });
     }
