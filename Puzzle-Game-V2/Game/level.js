@@ -122,7 +122,7 @@ function startGame(toGuess,level){
     // takes the 5 letters and puts it together
     function checkGuess(){
         const guess = [];
-        count ++;
+        
         for(let i = 0 ; i< wordLength; i++){
 
             const index = (currRow * wordLength) + i;
@@ -134,6 +134,9 @@ function startGame(toGuess,level){
             showMessage("Not a real word!");
             return;
         }
+
+        // after checking if the word is valid
+        count ++;
 
         // function to see if guess is right or wrong 
         colorGuess(guessedWord);
