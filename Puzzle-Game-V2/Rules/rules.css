@@ -1,0 +1,55 @@
+h1{
+    text-align: center;
+    font-size: 40px;
+    text-decoration: underline;
+}
+
+.rules-list{
+    column-count: 2;
+    column-gap: 25%;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.rules-list li{
+
+    margin: 10px 0;
+
+}
+
+.rules{
+    background-color: #F7F1DE ;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-size: 24px;
+    text-align: center;
+    
+}
+
+.rules h2{
+    font-size: 35px;
+    text-align: center;
+    margin-top: 30px;
+    text-decoration: underline;
+}
+.rules button{
+    background-color: #767976; 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 24px;
+    margin: 40px auto 100px;
+    cursor: pointer;
+    border-radius: 12px;
+    margin-bottom: 100px;
+    display: block;
+}
+
+video{
+    width: 70%;
+    margin: 30px auto;
+    display: block;
+}
+

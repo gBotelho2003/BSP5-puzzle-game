@@ -1,0 +1,43 @@
+
+h1{
+    text-align: center;
+    font-size: 40px;
+    margin-top: 50px;
+}
+
+
+/*paragraph welcoming user*/
+.welcomeText{
+    background-color: #F7F1DE ;
+    margin-left: 5%;
+    margin-right: 5%;
+    /*center of the page */
+    padding: 20px;
+    border-radius: 15px;
+    
+}
+
+.welcomeText p{
+    color: black;
+    text-align: center;
+    font-size: 24px;
+}
+
+.button{
+    background-color: #767976; 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 24px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+}
+.startButton{
+    text-align: center;
+    margin-top: 20px;
+}
+

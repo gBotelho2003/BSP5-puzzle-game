@@ -1,0 +1,62 @@
+/* Styling of the navigation bar for the whole website */
+
+/*background*/
+.navigationBar{
+
+    background-color: #576c6e;
+    overflow: hidden;
+    font-size: 20px;
+    
+}
+
+/* page links*/
+.navigationBar a {
+    text-align: center;
+    float: right;
+    color:aliceblue;
+    padding: 1% 4%;
+    text-decoration: none;
+    margin-top: 20px;
+    display: block;
+    
+}
+/*selected link*/
+.navigationBar a:hover{
+    background-color: #dddddd;
+    color: black;
+}
+
+/*current link*/
+.navigationBar a.active{
+    background-color: purple;
+    color: white;
+}
+
+/*navigation logo*/
+.navLogo{
+    color: aliceblue;
+    text-align: center;
+    padding: 1% 4%;
+    float: left;   
+}
+img{
+    width: 6%;
+    margin-bottom: 0;
+    
+}
+footer{
+    position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+    background-color: #576c6e;
+    color: aliceblue;
+    overflow: hidden;
+    text-decoration: none;  
+}
+body{
+    background-color: #F7F1DE ;
+    margin: 0;
+    padding: 0;
+}
