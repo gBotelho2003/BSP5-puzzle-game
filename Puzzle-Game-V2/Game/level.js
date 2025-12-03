@@ -177,6 +177,12 @@ function startGame(toGuess,level){
 
         // map to keep track of the letters that have been checked
         const letters = new Map();
+
+        // variables to calculate guess score
+        let Gl = 0;
+        let Ol = 0;
+
+
         // add the letters from the guess to letters as false because they have not been checked yet
         for(let j = 0; j<wordLength;j++){
             letters.set(guessedWord[j],false);
@@ -196,6 +202,7 @@ function startGame(toGuess,level){
                 key.style.color= "white";
                 // set the letter to true so that it does not get checked again 
                 letters.set(letter,true);
+                Gl++;
             }
             // verify if the letter is in the word but in the wrong position
             else if(toGuess.includes(letter)&& letters.get(letter)==false){
@@ -207,6 +214,7 @@ function startGame(toGuess,level){
                     key.style.background = "orange";
                     key.style.color= "white";
                 }
+                Ol++;
             }
             // word does not contain letter
             else{
@@ -221,33 +229,69 @@ function startGame(toGuess,level){
                 
             }
         }
-        // choose which message to show as
-        
 
+        // bag of feedback
+        const badGuess = ['Dont worry next guess will be better','Uff this words is hard!'];
+        const okeyGuess = ['Not bad! keep going','That is already good'];
+        const goodGuess = ['Is the next guess it?','Wow! so closee'];
+
+        // choose which message to show as
+        // formula :[(( (Gl x 2) + (Ol x 1) )/maxBaseScore) x 80] + [(maxGuesses - currGuess + 1 /currGuess) x 20 ]
+        // correct guess Gl * 2 = 10 
+        const maxBaseScore= 10;
+        let baseScore = (Gl*2) + (Ol*1);
+
+        // left side of formula
+        let score = (baseScore/maxBaseScore) * 80;
+
+        // right side of formula
+        let currGuess = currRow + 1 ;
+        let guessScore = ((5 - currGuess + 1 ) / 5) * 20;
+
+        // final score
+        let finalScore = score + guessScore;
+        let formula = Math.round(Math.max(1, Math.min(100, finalScore)));
+        
+        // feedback choice
+        let feedbackList = [];
+
+        if(formula <= 25 ){
+            feedbackList = badGuess;
+        }
+        else if(formula <= 75){
+            feedbackList = okeyGuess;
+        }
+        else{
+            feedbackList = goodGuess;
+        }
+
+        // random index
+        const feedbackIndex = Math.floor(Math.random()*feedbackList.length);
+        const feedback = feedbackList[feedbackIndex];
 
         // feedback message for each guess
         if(currRow == 0){
-            document.getElementById("f1").innerText = "Submitted first guess!";
+            document.getElementById("f1").innerText = feedback;
     
         }
         else if(currRow == 1){
-            document.getElementById("f2").innerText = "Submitted second guess!";
+            document.getElementById("f2").innerText = feedback;
             // make previous message disappear
             document.getElementById("f1").innerText = "";
 
         }
         else if(currRow == 2){
-            document.getElementById("f3").innerText = "Submitted third guess!";
+            document.getElementById("f3").innerText = feedback;
             // make previous message disappear
             document.getElementById("f2").innerText = "";
         }
         else if(currRow == 3){
-            document.getElementById("f4").innerText = "Submitted fourth guess!";
+            document.getElementById("f4").innerText = feedback;
             // make previous message disappear
             document.getElementById("f3").innerText = "";
         }
         else if(currRow == 4){
-            document.getElementById("f5").innerText = "Submitted fifth guess!"; 
+            document.getElementById("f5").innerText = feedback; 
             // make previous message disappear
             document.getElementById("f4").innerText = "";
         }
