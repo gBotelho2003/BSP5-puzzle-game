@@ -29,7 +29,7 @@ function difficulty(level) {
     
     if(level == 'easy') {
 
-      // random word from the list for the gameB
+      // random word from the list for the game
         words = easyWords;
         
 
@@ -177,6 +177,12 @@ function startGame(toGuess,level){
 
         // map to keep track of the letters that have been checked
         const letters = new Map();
+
+        // variables to calculate guess score
+        let Gl = 0;
+        let Ol = 0;
+
+
         // add the letters from the guess to letters as false because they have not been checked yet
         for(let j = 0; j<wordLength;j++){
             letters.set(guessedWord[j],false);
@@ -196,6 +202,7 @@ function startGame(toGuess,level){
                 key.style.color= "white";
                 // set the letter to true so that it does not get checked again 
                 letters.set(letter,true);
+                Gl++;
             }
             // verify if the letter is in the word but in the wrong position
             else if(toGuess.includes(letter)&& letters.get(letter)==false){
@@ -207,6 +214,7 @@ function startGame(toGuess,level){
                     key.style.background = "orange";
                     key.style.color= "white";
                 }
+                Ol++;
             }
             // word does not contain letter
             else{
@@ -222,6 +230,55 @@ function startGame(toGuess,level){
             }
         }
 
+        // bag of feedback
+        const badGuess = ['Dont worry next guess will be better','Uff this word is hard!'];
+        const okeyGuess = ['Not bad! keep going','That is already good'];
+        const goodGuess = ['Is the next guess it?','Wow! so closee'];
+
+        // choose which message to show as
+        // formula :[(( (Gl x 2) + (Ol x 1) )/maxBaseScore) x 80] + [(maxGuesses - currGuess + 1 /currGuess) x 20 ]
+        // correct guess Gl * 2 = 10 
+        const maxBaseScore= 10;
+        let baseScore = (Gl*2) + (Ol*1);
+
+        // left side of formula
+        let score = (baseScore/maxBaseScore) * 80;
+
+        // right side of formula
+        let currGuess = currRow + 1 ;
+        let guessScore = ((5 - currGuess + 1 ) / 5) * 20;
+
+        // final score
+        let finalScore = score + guessScore;
+        let formula = Math.round(Math.max(1, Math.min(100, finalScore)));
+        
+        // feedback choice
+        let feedbackList = [];
+
+        if(formula <= 33 ){
+            feedbackList = badGuess;
+        }
+        else if(formula <= 66){
+            feedbackList = okeyGuess;
+        }
+        else{
+            feedbackList = goodGuess;
+        }
+
+        // random index
+        const feedbackIndex = Math.floor(Math.random()*feedbackList.length);
+        const feedback = feedbackList[feedbackIndex];
+
+        // feedback voice output for each guess
+        if ('speechSynthesis' in window && baseScore !=10) {
+                const utterance = new SpeechSynthesisUtterance(feedback);
+                utterance.lang = 'en-US'; // language
+                utterance.rate = 1;       // speed (0.1–10)
+                utterance.pitch = 1;      // pitch (0–2)
+                window.speechSynthesis.speak(utterance);
+            } 
+        
+       
     }
 
 
