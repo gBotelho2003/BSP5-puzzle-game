@@ -231,9 +231,9 @@ function startGame(toGuess,level){
         }
 
         // bag of feedback
-        const badGuess = ['Dont worry next guess will be better','Uff this word is hard!'];
-        const okeyGuess = ['Not bad! keep going','That is already good'];
-        const goodGuess = ['Is the next guess it?','Wow! so closee'];
+        const badGuess = ['Dont worry next guess will be better','Uff this word is hard!','Atleast you know these letters are not it','You can do better, I know it!'];
+        const okeyGuess = ['Not bad! keep going','That is already good','This makes it easier!','This certainly helps'];
+        const goodGuess = ['Is the next guess it?','Wow! so close..','Good you are almost there!','You are getting the hang of it'];
 
         // choose which message to show as
         // formula :[(( (Gl x 2) + (Ol x 1) )/maxBaseScore) x 80] + [(maxGuesses - currGuess + 1 /currGuess) x 20 ]
