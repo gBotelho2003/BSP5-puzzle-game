@@ -65,7 +65,7 @@ function difficulty(level) {
         window.location.href = "/Puzzle-Game-V2/Game/mediumLevel.html";
     }
     else if(level == 'hard'){
-        window.location.href = "/Puzzle-Game-V3/Game/hardLevel.html"; 
+        window.location.href = "/Puzzle-Game-V2/Game/hardLevel.html"; 
     }
 }
 
